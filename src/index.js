@@ -10,8 +10,8 @@ const app = fastify();
 const port = process.env.PORT || 9011;
 const channelId = process.env.CHANNEL_TOKEN;
 
-const generateMessage = (data) => {
-    const {productName, color, size, customerName, phoneNumber} = data;
+const formatMessage = (data) => {
+    const { productName, color, size, customerName, phoneNumber } = data;
     const date = new Date();
     const formatDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
     return `*Замовлення:*\n
@@ -25,7 +25,7 @@ const generateMessage = (data) => {
 
 app.post('/', (req, reply) => {
     const data = req.body;
-    const message = generateMessage(data);
+    const message = formatMessage(data);
     bot.telegram.sendMessage(channelId, message, {parse_mode: 'Markdown'}).catch(console.error);
     reply.send({text: 'Order submitted!'});
 });
