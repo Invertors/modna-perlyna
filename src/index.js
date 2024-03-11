@@ -1,9 +1,8 @@
-const { Telegraf, Markup} = require('telegraf');
+const { Telegraf } = require('telegraf');
 const fastify = require('fastify');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.start((ctx) => ctx.register('Welcome'));
-bot.on("message", (ctx) => ctx.reply(ctx.chat.id));
 bot.launch().catch(console.error);
 
 const app = fastify();
@@ -22,6 +21,10 @@ const formatMessage = (data) => {
     Номер Телефону: *${phoneNumber}*,
     Дата замовлення: *${formatDate}*`
 }
+
+app.get('/', (req, reply) => {
+    reply.send({message: 'Hello!'});
+})
 
 app.post('/', (req, reply) => {
     const data = req.body;
