@@ -1,4 +1,4 @@
-const { Telegraf } = require('telegraf');
+const { Telegraf, Markup} = require('telegraf');
 const fastify = require('fastify');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
@@ -10,9 +10,23 @@ const app = fastify();
 const port = process.env.PORT || 9011;
 const channelId = process.env.CHANNEL_TOKEN;
 
+const generateMessage = (data) => {
+    const {productName, color, size, customerName, phoneNumber} = data;
+    const date = new Date();
+    const formatDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+    return `*Замовлення:*\n
+    Назва товару: *${productName}*,
+    Колір: *${color}*
+    Розмір: *${size}*,
+    Ім'я Замовника: *${customerName}*,
+    Номер Телефону: *${phoneNumber}*,
+    Дата замовлення: *${formatDate}*`
+}
+
 app.post('/', (req, reply) => {
-    const data = JSON.stringify(req.body);
-    bot.telegram.sendMessage(channelId, data, {}).catch(console.error);
+    const data = req.body;
+    const message = generateMessage(data);
+    bot.telegram.sendMessage(channelId, message, {parse_mode: 'Markdown'}).catch(console.error);
     reply.send({text: 'Order submitted!'});
 });
 

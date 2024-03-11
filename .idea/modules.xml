@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ignat-bot.iml" filepath="$PROJECT_DIR$/.idea/ignat-bot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modna-perlyna-bot.iml" filepath="$PROJECT_DIR$/.idea/modna-perlyna-bot.iml" />
     </modules>
   </component>
 </project>
