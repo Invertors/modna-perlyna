@@ -1,5 +1,6 @@
 const { Telegraf } = require('telegraf');
 const fastify = require('fastify');
+const cors = require('@fastify/cors');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.start((ctx) => ctx.register('Welcome'));
@@ -15,18 +16,16 @@ const formatMessage = (data) => {
     const formatDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
     return `*Замовлення:*\n
     Назва товару: *${productName}*,
-    Колір: *${color}*
+    Колір: *${color}*,
     Розмір: *${size}*,
     Ім'я Замовника: *${customerName}*,
     Номер Телефону: *${phoneNumber}*,
     Дата замовлення: *${formatDate}*`
 }
 
-app.get('/', (req, reply) => {
-    reply.send({message: 'Hello!'});
-})
+app.register(cors, {});
 
-app.post('/', (req, reply) => {
+app.post('/bot/', (req, reply) => {
     const data = req.body;
     const message = formatMessage(data);
     bot.telegram.sendMessage(channelId, message, {parse_mode: 'Markdown'}).catch(console.error);
