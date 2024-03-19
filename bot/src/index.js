@@ -21,6 +21,8 @@ const formatMessage = (model, color, size, customerName, phoneNumber) => {
     Дата замовлення: *${formatDate}*`
 }
 
+app.get('/', (req, reply) => reply.send({text: 'Hello'}));
+
 app.post('/bot', (req, reply) => {
     console.log(req.body);
     const { model, color, size, customerName, phoneNumber } = req.body;
