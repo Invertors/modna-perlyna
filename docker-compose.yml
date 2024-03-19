@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: bot/DockerNode
+    container_name: nodejs
+    restart: unless-stopped
+    env_file: bot/.env
+    ports:
+      - "3000:3000"
+    networks:
+      app-network:
+        ipv4_address: 10.5.0.5
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/DockerNginx
+    container_name: walking_suit
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      app-network:
+        ipv4_address: 10.5.0.6

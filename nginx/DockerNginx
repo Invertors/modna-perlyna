@@ -1,0 +1,4 @@
+FROM nginx:latest
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx/ssl /etc/ssl/nginx
+COPY static /usr/share/nginx/html/
