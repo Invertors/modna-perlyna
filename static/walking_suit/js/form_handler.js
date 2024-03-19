@@ -11,7 +11,7 @@ phoneNumber.oninput = function(){
 const sendForm = async ()=>{
     try{
 
-        await fetch('https://modnapearl.shop/bot/',{
+        await fetch('https://modnapearl.shop/bot',{
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
