@@ -6,7 +6,7 @@ bot.start((ctx) => ctx.register('Welcome'));
 bot.launch().catch(console.error);
 
 const app = fastify();
-const port = process.env.PORT || 9011;
+const port = process.env.PORT;
 const channelId = process.env.CHANNEL_TOKEN;
 
 const formatMessage = (model, color, size, customerName, phoneNumber) => {
@@ -21,17 +21,18 @@ const formatMessage = (model, color, size, customerName, phoneNumber) => {
     Дата замовлення: *${formatDate}*`
 }
 
-app.get('/', (req, reply) => reply.send({text: 'Hello'}));
+app.get('/', (req, reply) => {
+    reply.send({text: 'Hello'});
+});
 
 app.post('/bot', (req, reply) => {
-    console.log(req.body);
     const { model, color, size, customerName, phoneNumber } = req.body;
     const message = formatMessage(model, color, size, customerName, phoneNumber);
     bot.telegram.sendMessage(channelId, message, {parse_mode: 'Markdown'}).catch(console.error);
     reply.send({text: 'Order submitted!'});
 });
 
-app.listen({port}, (err) => {
+app.listen({port, host: "0.0.0.0"}, (err) => {
     if (err) {
         console.error(`Error occurred while staring the bot: ${err}`);
         return;
