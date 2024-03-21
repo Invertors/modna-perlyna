@@ -12,7 +12,21 @@
     z-index: 100;
 }
 
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background: rgba(102, 0, 15, 0.5)
+}
 
 
 
@@ -97,8 +111,9 @@ h2.title {
 }
 
 .catitem {
-    width: 420px;
-    margin: 0 auto 40px;
+    text-align: center;
+    width: 100%;
+    margin: 40px auto 0;
 
 }
 
